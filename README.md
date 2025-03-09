@@ -57,9 +57,13 @@ I will remove the missing values, check whether I need to replace the missing va
 2. Standardizing variable formats
 I will make sure that my variables' scales are the same, so I could get accurate results.
 3. Exploratory Data Analysis:
+
 3.1 Descriptive statistics (mean, median, mode) to describe key variables
+
 3.2 Visualizations (histograms, bar plots, boxplots) to identify trends
+
 These 2 steps help me to check the distributions, evaluate the normality of data distribution and make conclusions on what kind of tests I should use (for example, should I use parametric or non-parametric ANOVA).
+
 4. Hypothesis formulation
 5. Hypothesis testing 1: Correlation analysis
 This step will help me to examine whether they are relationships between my variables, and if there is, then evaluate the strength and direction of the relationship between two variables. Whether an increase or decrease in one variable is associated with an increase or decrease in another variable.
