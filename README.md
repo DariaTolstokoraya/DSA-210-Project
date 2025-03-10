@@ -72,11 +72,11 @@ This step will help me to understand whether changes in one variable (the indepe
 
 For this moment of project development I find it hard to understand what type of machine learning techniques can be applied for my data set. Probably at the future stages it will become more obvious for me. 
 
-People with higher digital and real-life social interaction levels may report greater well-being and lower social exclusion.
-A stronger sense of belonging in the workplace could correlate with higher happiness scores.
-Limited digital access may be linked to higher social exclusion risks, especially among older populations.
+# Hypothesis
+For each type of tests the hypothesis will be formulated separately.
 
-# Limitations:
+# Limitations
 One obvious limitation I can think of right now is that my analysis relies on self-reported survey data, which may include bias. It is a pretty common situation when it comes to self reporting, because people like to respond in a socially desirable way or they misunderstand the questions, for example.
-However, there is nothing I can do to tackle this limitation, because I am working with existing data set and I can not change the formulations of the quiestions (to make them more understandable, for example) as well as control the survey process. 
 
+
+However, there is nothing I can do to tackle this limitation, because I am working with existing data set and I can not change the formulations of the quiestions (to make them more understandable, for example) as well as control the survey process.
