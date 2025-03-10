@@ -1,11 +1,11 @@
 # Project idea -- Digital & social contacts and their relation to subjective well-being and social exclusion in Switzerland
-In this project, I will analyze how digital and social contacts within the family and workplace are related to subjective well-being and social exclusion in Switzerland. Switzerland was chosen due to its status being one of the wealthiest countries in the world and due to its high GDP per capita - $92,463 GDP per Capita (Richest Countries in the world 2024., n.d.). This wealth is closely connected to how people work (their work processes), their quality of life, and their overall happiness and level of subjective well-being. 
+In this project, I will analyze how digital and social contacts within the family and workplace are related to subjective well-being and social exclusion in Switzerland. Switzerland was chosen due to its status of one of the wealthiest countries in the world and due to its high GDP per capita - $92,463 GDP (Richest Countries in the world 2024., n.d.). This wealth is closely connected to how people work (their work processes), their quality of life, and their overall happiness and level of subjective well-being. 
 
 Living in such a prosperous country likely means that Swiss residents enjoy a high standard of living. Curious about this connection, I want to look at data from the European Social Survey (ESS) portal. I plan to explore happiness levels and examine factors such as work conditions and family life. The goal is to explore how digital and real-life social connections are related to the well-being of Swiss residents.
 
 Source: Richest Countries in the World 2024. (n.d). URL: https://gfmag.com/data/richest-countries-in-the-world/
 
-# Description of Dataset
+# Description of Dataset & Variables
 
 The data for this study will be obtained from the European Social Survey (ESS), rounds 10 or 11. The dataset includes multiple variables that reflect different aspects of digital and social interactions and estimation of subjective well-being level. It is self-report data.
 On this website it is possible to look at all the present data, read the desciption of the variables and download the data set - https://ess.sikt.no/en/datafile/242aaa39-3bbb-40f5-98bf-bfb1ce53d8ef
@@ -24,12 +24,12 @@ Ratio variable: “ttminpnt” - This variable represents answers of respondents
 
 During my future steps, I might remove some variables and add new ones that would be relevant for my topic. These six variables are related to the topic of “Digital and social contacts within family and workplace and its relation to subjective well-being and social exclusion”, so I would primarily focus on them. 
 
-# Motivation to study this topic
+# Motivation to study this topic & Literature Review
 Motivation to study this topic lies in several dimensions.
 
 First of all, my personal interest and incentive to explore the country I would like to live in one day. The wealth and high standards of living of Switzerland make it a really attractive country to consider moving.
 
-Second of all, the lack of studies on exploring Switzerland. There are a lot of literature on exploring relationships of subjective well-being and social exlusions with amount of social contacts a person has, but there were no detailed analysis of Switzerland situation.
+Second of all, the lack of studies on exploring Switzerland. There are a lot of literature on exploring relationships of subjective well-being and social exlusions with amount of social contacts a person has, but there were no detailed analysis of Switzerland case.
 
 In the study titled “Technological Affluence and Subjective Well-Being” (Kavetsos, G., & Koutroumpis, P., 2011), a European pooled cross-sectional dataset was used, focusing specifically on internet access and ownership of electronic gadgets in relation to subjective well-being. In my research, I aim to go further by examining how online connections between family members and coworkers or bosses relate to an individual's subjective well-being. Additionally, the country sample used in this study indicates that there has been no similar analysis conducted for Switzerland. It means thet a research gap is detected :)
 The responses were collected from 29 countries, including Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, the Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, Turkey, and the United Kingdom. But not for Switzerland.
@@ -37,7 +37,7 @@ The responses were collected from 29 countries, including Austria, Belgium, Bulg
 Source: Kavetsos, G., & Koutroumpis, P. (2011). Technological affluence and subjective well-being. Journal of Economic Psychology, 32(5), 742–753.
 
 The research "Always Available, Always Attached: A Relational Perspective on the Effects of Mobile Phones and Social Media on Subjective Well-Being" by Taylor & Bazarova is the closest to my work in terms of measurement focus. The aim of the researchers to address how interpersonal communication across various types media affects the subjective well-being (SWB) (Taylor, S. H., & Bazarova, N. N., 2021). Their study emphasizes digital contacts and happiness, but they focues on romantic relationships, involving one hundred fourteen romantic couples in long-term relationships recruited between January and March 2019. 
-In my analysis I will not be limited by "romantic relationships" framework and plan to describe the situation on a more generelazible level.
+In my analysis I will not be limited by "romantic relationships" framework and plan to describe the situation on a more generelized level.
 
 Source: Taylor, S. H., & Bazarova, N. N. (2021). Always Available, Always attached: A relational perspective on the effects of mobile phones and social media on Subjective Well-Being. Journal of Computer-Mediated Communication, 26(4), 187–206.
 
@@ -70,7 +70,7 @@ These 2 steps help me to check the distributions, evaluate the normality of data
 5. Hypothesis testing 1: Correlation analysis
 This step will help me to examine whether they are relationships between my variables, and if there is, then evaluate the strength and direction of the relationship between two variables. Whether an increase or decrease in one variable is associated with an increase or decrease in another variable.
 6. Hypothesis testing 2: Regression analysis
-This step will help me to understand whether changes in one variable (the independent variable) are associated with changes in another variable (the dependent variable). Frankly speaking, it allows us to understand how one variable depends on another and to quantify the strength and nature of this relationship.
+This step will help me to understand whether changes in one variable (the independent variable) are associated with changes in another variable (the dependent variable).
 
 For this moment of project development I find it hard to understand what type of machine learning techniques can be applied for my data set. Probably at the future stages it will become more obvious for me. 
 
