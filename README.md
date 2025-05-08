@@ -24,6 +24,11 @@ Ratio variable: “ttminpnt” - This variable represents answers of respondents
 
 During my future steps, I might remove some variables and add new ones that would be relevant for my topic. These six variables are related to the topic of “Digital and social contacts within family and workplace and its relation to subjective well-being and social exclusion”, so I would primarily focus on them. 
 
+### UPD:
+Working on the project, I realize that for regression analysis I have to add some additional variables:
+- “hhlipnt” - Parent lives in same household with a respondent (It has integer type)
+- “colprop” - Proportion of colleagues based at the same location (It has integer type)
+
 # Motivation to study this topic & Literature Review
 Motivation to study this topic lies in several dimensions.
 
@@ -56,29 +61,79 @@ How digital and social contacts within family and workplace are related to subje
 The analysis will consist of the following stages:
 1. Data Cleaning and Filtering
 I will remove the missing values, check whether I need to replace the missing values with the medians of the variables (so I would not worsen my outcome analysis), remove outliers.
+
+### UPD: 
+1) Removed invalid codes (e.g., 6666, 7777 for travel time / 7, 8, 9 for sclact - taking part into social activities variable / etc.).
+2) Filtered ordinal variables (sclact, closepnt) to valid ranges (1–5) and make the corresponding scales.
+
 2. Standardizing variable formats
 I will make sure that my variables' scales are the same, so I could get accurate results.
+
 3. Exploratory Data Analysis:
 
 3.1 Descriptive statistics (mean, median, mode) to describe key variables
 
+### UPD: 
+Based on this step, I have such findings: 
+1) 93% have internet access (acchome).
+2) Most Swiss respondents (mean = 3 on 1-5 scale) reported social activity levels "about the same" as their peers. Only a small minority (15% of those without internet access) reported "much less" social activity.
+3) High self-reported happiness (mean = 8.1/10) and team belonging (mean = 8.5/10), indicating strong workplace integration.
+4) Most Swiss feel "very close" to their parents (tallest bar in distribution), Average travel time to parents is 173 minutes (~3 hours), median = 30 minutes.
+5) Happiness scores showed:
+Mean = 8.1
+Median = 8.0
+Mode = 8.0
+
 3.2 Visualizations (histograms, bar plots, boxplots) to identify trends
 
-These 2 steps help me to check the distributions, evaluate the normality of data distribution and make conclusions on what kind of tests I should use (for example, should I use parametric or non-parametric ANOVA).
+These 2 steps help me to check the distributions, evaluate the normality of data distribution and make conclusions on what kind of tests I should use (for example, should I use parametric or non-parametric ANOVA). And this step is also for making EDA and deriving insights from the data.
 
 4. Hypothesis formulation
-5. Hypothesis testing 1: Correlation analysis
+During my data analysis, I have done 3 tests: Chi-Square Test, correlation analysis and regression. For each of the statistical tests I came up with the own hypothesis.
+
+4.1. Hypothesis testing 1: Chi-square Test
+H0: There is no association between the type of the area of living and ability to access the Internet from home
+HA: There is association between the type of the area of living and ability to access the Internet from home
+
+### Findings:
+1) The chi-square test reveals a statistically significant association (p=0.032) between internet access and residential area in Switzerland, with rural farms showing the highest proportion of residents lacking internet access compared to urban areas.
+2) Our p-value: 0.0317 is less than 0.05, meaning we reject the null hypothesis and state that these two categorical variables are not independently distributed, meaning there is an association between the type of the area of living and ability to access the Internet from home. It means people have different abilities to access the Internet from home in different types of areas they live in.
+
+4.2. Hypothesis testing 2: Correlation analysis
 This step will help me to examine whether they are relationships between my variables, and if there is, then evaluate the strength and direction of the relationship between two variables. Whether an increase or decrease in one variable is associated with an increase or decrease in another variable.
-6. Hypothesis testing 2: Regression analysis
+
+H0: There is no association between feeling like a part of a team (teamfeel) and being happy (happy)
+H1: There is an association between feeling like a part of a team and being happy
+
+### Pearson test revelaed that:
+1) Weak but significant link between teamfeel and happy (correlation coefficient is 0.19, p-value < .001 - statistically significant result). So, each 1-point increase in team belonging predicts 0.19 higher happiness
+2) Negligible correlations for ttminpnt (distance) and closepnt (closeness) with happiness (happy).
+
+### Conslusion: We reject the H0 and accept H1, claiming we have an association between feeling like a part of a team and happiness level.
+
+4.3. Hypothesis testing 3: Regression analysis
 This step will help me to understand whether changes in one variable (the independent variable) are associated with changes in another variable (the dependent variable).
 
-For this moment of project development I find it hard to understand what type of machine learning techniques can be applied for my data set. Probably at the future stages it will become more obvious for me. 
+H0: There is no significant relation between feeling happy (outcome) and the team feeling (continious predictor)
+HA: There is a significant relation between feeling happy (outcome) and the team feeling (continious predictor)
 
-# Hypothesis
-For each type of tests the hypothesis will be formulated separately.
+### Based on the regression results:
+1) Swiss respondents with average team belonging, centered at 0, report high happiness, confirming overall life satisfaction.
+2) The  regression line indicates each 1-point increase in team belonging (above the mean) predicts higher happiness. 
+3) Points are densely clustered near the mean (0 to +2 centered scores), suggesting most Swiss experience moderate-to-strong workplace integration. The wider spread at lower scores (-8 to -2) highlights greater happiness variability among those with below-average team belonging.
 
 # Limitations
 One obvious limitation I can think of right now is that my analysis relies on self-reported survey data, which may include bias. It is a pretty common situation when it comes to self reporting, because people like to respond in a socially desirable way or they misunderstand the questions, for example.
 
-
 However, there is nothing I can do to tackle this limitation, because I am working with existing data set and I can not change the formulations of the quiestions (to make them more understandable, for example) as well as control the survey process.
+
+UPD: On this phase of the project, I can formulate certain limitations I have faced with:
+
+1) Self-report bias in social and well-being measures (I talked about it at the beggining)
+2) Modest effect sizes for most correlations (r<0.2), I have found really small corelation coefficient, though some of them being statistically significant.
+
+# Overall conclusions for 2nd phase analysis
+
+1) Workplace social integration (team belonging) emerges as the strongest predictor of happiness in Switzerland.
+2) Closer parental ties show a slight positive association with happiness, suggesting potential cultural trade-offs between family obligations and personal well-being, so family ties are not that significant in determing well-being.
+3) Physical distance from parents proves irrelevant to happiness or social bonds, challenging assumptions about geographic proximity's role in family relationships.
