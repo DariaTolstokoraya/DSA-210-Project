@@ -144,6 +144,8 @@ HA: There is a significant relation between feeling happy (outcome) and the team
 
 3) Points are densely clustered near the mean (0 to +2 centered scores), suggesting most Swiss experience moderate-to-strong workplace integration. The wider spread at lower scores (-8 to -2) highlights greater happiness variability among those with below-average team belonging.
 
+The regression model explained 4% of outcome variance (R² = 0.04). Both workplace integration (β = 0.14) and parental closeness (β = 0.11) showed small positive associations, while household composition demonstrated no meaningful relationship. The low R² suggests important predictors may be missing from the model.
+
 # Limitations
 One obvious limitation I can think of right now is that my analysis relies on self-reported survey data, which may include bias. It is a pretty common situation when it comes to self reporting, because people like to respond in a socially desirable way or they misunderstand the questions, for example.
 
