@@ -99,7 +99,7 @@ I have got these results:
 - On average people in Switzerland estimate their level of social activity is about the same as people of their age (as 3 stands for "About the same"). So Swiss people do not feel socially excluded on average.
 - On average people in Switzerland feel pretty close to their parents, which is also a great indicator to judge whether Swiss people feel excluded from society and lack attention from their significant others. 
 - On average people in Switzerland feel like they belong to a team, as the mean is pretty high (8.5) out of 10 scale. The same situation is for "happy" variable, as Swiss people tend to feel happy on average.
-#- On average people in Switzerland live 3 hours away (173.4 mins) from their parents, meaning that on average grown-up children and their parents live far apart.
+- On average people in Switzerland live 3 hours away (173.4 mins) from their parents, meaning that on average grown-up children and their parents live far apart.
 
 Swiss residents generally enjoy high digital connectivity, social integration and emotional well-being. They report average social activity levels, strong family bonds (despite living ~3 hours from parents) and a sense of belonging in teams, alongside high self-reported happiness. These initial findings in EDA analysis suggest low perceived social exclusion in Switzerland.
 
@@ -165,6 +165,43 @@ During further phases of the project, I formulated certain limitations I have fa
    
 3) Physical distance from parents proves irrelevant to happiness or social bonds, challenging assumptions about geographic proximity's role in family relationships.
 
+# Feature Engineering 
+### 1. Digital Reliance Score
+
+#### What I Did:
+I created a binary variable called "digital_reliance" to identify individuals who likely depend on digital communication with their parents. This was done by:
+- Calculating the median travel time to parents (ttminpnt)
+- Marking as 1 those who:
+* Live farther than the median distance and
+* Have internet access at home (acchome = 1)
+- All others were marked as 0
+
+I did it for my ML models implementation to objectively measure a modern social behavior pattern among Swiss people: maintaining family ties digitally when physical visits are difficult.
+This helps test whether digital communication compensates for distance in maintaining social connections (to be verified in clustering).
+
+#### Prediction: 
+Individuals with digital_reliance=1 will show higher sclact (level of participation in social activities) scores, suggesting that technology helps reduce isolation.
+
+#### Findings:
+Swiss people with the highest digital activity report the lowest level of participation in social activities.
+Contrary to expectations, Cluster 1 ("Overworked Technology Users") with medium-high digital reliance (digital_reliance=0.63) reported the lowest social activity levels (sclact=2.15). Meanwhile, Cluster 2 ("Digitally-Balanced") with the highest digital reliance (0.76) showed moderate social activity (2.87), still below Cluster 0 ("Traditional Workers") with no digital reliance (sclact=3.40).
+
+### 2. Social-Work Balance Index
+
+#### What I Did:
+I constructed a continuous variable measuring the trade-off between social and work life by:
+- Scaling teamfeel (workplace integration, original scale 0-10) to match sclact's range (1-6) using MinMax scaling.
+- Subtracting scaled work integration from social activity frequency:
+* social_work_balance = sclact - scaled(teamfeel)
+
+I did it to quantify whether individuals prioritize social activities (sclact) over workplace relationships (teamfeel) or vice versa.
+
+#### Prediction: 
+Those with negative social_work_balance (work-focused) may report lower family closeness (closepnt).
+
+#### Findings:
+Cluster 1 (most work-focused, social_work_balance=-3.41) showed moderate family closeness (closepnt=3.69), only slightly lower than Cluster 0 (3.92) and Cluster 2 (3.45).
+
 # Machine Learning implementation
 
 For this analysis, I selected K-Means clustering as my primary method because it's particularly well-suited for datasets like mine with clear numerical features. K-Means works by grouping similar data points together while keeping different clusters as separate as possible, which aligns perfectly with my goal of identifying distinct patterns in social behaviors and digital reliance.
@@ -174,3 +211,114 @@ To ensure I choose the right number of clusters, I will use silhouette analysis.
 As a secondary check, I employ hierarchical clustering (dendogram), which builds a tree-like structure showing how data points naturally group together at different levels of similarity. This approach is valuable because it doesn't require to specify the number of clusters in advance, serving as an independent way to verify the patterns found by K-Means.
 
 This combination of methods that I chose, which are K-Means (for clear cluster definitions), silhouette analysis (for quality measurement), and hierarchical clustering (for natural pattern verification), gives confidence that my findings reflect genuine patterns in the data rather than arbitrary groupings. All techniques were implemented using standardized data to ensure fair comparisons between features measured on different scales.
+
+## Clustering
+After checking Elbow Method and Silhouette Score results, I came up with the optimal cluster number which is 3. Below I will report my interpretations of the graphs.
+
+1. Elbow Method Plot
+The curve flattens significantly after k=3. The "elbow" (optimal point) is at k=3 where the rate of inertia decrease slows down
+So,  k=3 is likely the optimal number of clusters, as adding more clusters beyond this point yields diminishing returns.
+
+2. Silhouette Score Plot
+Higher values = better-defined clusters. Scores > 0.5 indicate reasonable structure
+The highest score occurs at k=3 (~ >0.22). We also see pretty high indicator when it is 7 clusters. I will still chose to focus on 3 clusters, because 3 clusters are easier to interpret and act upon than 7.
+So,  k=3 is likely the optimal number of clusters.
+
+I want to explain my reasoning on cluster namings.
+
+#### 1. Cluster 0: "Work-centric lifestyle"
+
+##### Key Features:
+- Lowest digital reliance (0.11)
+- Extreme work-life imbalance (-2.18)
+- Highest family closeness (3.92)
+
+These individuals:
+- Rarely use digital tools for family communication
+- Prioritize work (very high teamfeel=9.15) but maintain strong family ties
+- Represent traditional work-centric lifestyles
+
+#### 2. Cluster 1: "Overworked Technology Users"
+
+##### Key Features:
+- Medium digital reliance (0.63)
+- Worst work-life balance (-3.41)
+- Lowest social activity (2.15)
+  
+These individuals:
+- Use technology moderately but are consumed by work
+- Show the most extreme work-life imbalance
+- Sacrifice social activities (sclact is lowest)
+
+#### 3. Cluster 2: "Digitally-Balanced"
+
+##### Key Features:
+- Highest digital reliance (0.76)
+- Moderate work-life balance (-1.27)
+- Balanced work integration (6.28)
+
+These individuals:
+- Are the most tech-dependent for social connections
+- Maintain better work-life balance than Cluster 1
+- Show moderate social activity despite high digital use
+
+The visualization reveals three distinct social behavior profiles. On the left side of the plot, we find the Work-Centric Lifestyle cluster, positioned centrally along the vertical axis but distinctly left-leaning horizontally. These individuals exhibit the lowest digital reliance scores, combined with extremely high work focus (teamfeel ~9.15) and moderately active social lives. Their poor work-life balance scores suggest traditional workers who prioritize office jobs over digital socialization, maintaining in-person connections but struggling to harmonize professional and personal spheres.
+
+Moving toward the middle-right section of the plot, slightly lower vertically, we encounter the Overworked Technology Users. This group presents a paradoxical profile: medium digital reliance coupled with the most extreme work-life imbalance (social_work_balance ~ -3.41) and the lowest recorded social activity. Their position indicates they utilize technology primarily for work purposes rather than social connection, becoming consumed by professional demands at the expense of personal relationships. This cluster exemplifies the "always-on" work culture enabled by partial digital adoption without compensatory social benefits.
+
+The far right section hosts the Digitally-Balanced group, positioned at moderate heights along the vertical axis. These individuals demonstrate the highest digital reliance yet maintain the least negative work-life balance scores, achieving what appears to be sustainable integration of technology into their social and professional lives. Their moderate social activity levels suggest successful adaptation to digital tools without allowing work to dominate, representing a potentially optimal behavioral pattern in our increasingly connected world. The spatial separation between this cluster and the Overworked Technology Users is particularly telling, highlighting how similar technology adoption rates can yield dramatically different lifestyle outcomes depending on usage patterns and boundary-setting.
+
+### K-Means Clustering
+
+K-Means was selected as the clustering algorithm due to its computational efficiency and suitability for identifying spherical clusters in standardized data. The analysis used three clusters (validated through both the elbow method and silhouette scores). Principal Component Analysis (PCA) was integrated to visualize the high-dimensional data in two dimensions, with PC1 explaining 31.8% of variance (primarily capturing digital reliance, where right indicates high and left indicates low technology use) and PC2 explaining 22.5% of variance (reflecting work-life balance, with top representing socially active individuals and bottom representing work-focused individuals).
+
+Three distinct clusters emerged:
+
+- Traditional Socializers (left-center): Low digital use (0.11) with high work focus (9.15) but moderate social activity (3.40)
+- Overworked Tech Users (bottom-center): Medium digital use (0.63) with extreme work imbalance (-3.41) and low socialization (2.15)
+- Digitally-Balanced (far right): High digital use (0.76) with moderate balance (-1.27) and social activity (2.87)
+
+### Hierarchical Clustering
+
+For additional verification, I apply hierarchical clustering, which offers:
+- No need to pre-specify cluster count, letting the data reveal natural groupings.
+- Dendrogram visualization, illustrating how clusters merge at different similarity levels.
+- Independent confirmation of K-Means results, ensuring methodological reliability.
+
+#### Dendogram
+Y-axis (Merge Distance): Shows the distance at which clusters were merged. Higher values mean more dissimilar clusters were combined.
+
+X-axis: Represents individual data points (respondents in your case), though they're not labeled in your screenshot.
+
+#### Agglomerative Clustering
+
+This visualization shows three distinct clusters formed by agglomerative hierarchical clustering (Ward linkage) in a 2D PCA space, where PC1 (31.8% variance) and PC2 (22.5% variance) capture over half of the data's variability, indicating reasonably well-separated groups in this reduced dimension. 
+
+#### Divisive Clustering (Top-Down)
+
+This divisive clustering visualization shows four clusters (0.0 to 3.0) created through recursive binary splitting using K-Means, displayed in a 2D PCA space where PC1 explains 31.8% of the variance. The top-down approach reveals hierarchical structure, with clusters partially separated along PC1 but potentially overlapping due to the limited variance captured in this 2D view. Compared to your earlier agglomerative results (3 clusters), this method provides finer subdivisions at the cost of potential over-segmentation.
+
+## Overall conclusions for ML models implimentations
+
+The clustering analysis successfully identified three distinct behavioral profiles using K-Means, validated by silhouette scores and the elbow method. Hierarchical clustering independently confirmed these groupings. The clusters reveal meaningful patterns: traditional work-centric individuals, overworked technology users and digitally-balanced adapters. PCA visualization (PC1: 31.8%, PC2: 22.5%) highlighted clear separations along digital reliance and work-life balance axes. 
+
+The divisive method split people into more groups, but some may be too small to be meaningful. The analysis shows that balancing tech use and personal life works best—the "digitally-balanced" group had the healthiest lifestyle.
+
+Since all methods gave similar results, we can trust these findings. They clearly group people into different behavior types, which can help create tailored solutions. However, the 2D view might hide some details—looking at the original features could reveal more. In the end, the models did a great job identifying real-world social behavior patterns.
+
+# Overall conclusions about project results
+
+1. Most Swiss people report being very happy (8.1/10) and feeling connected at work (8.5/10). Nearly all (93%) have internet at home, though rural areas have slightly less access.
+2. There main lifestyle types were found:
+- Traditional workers: Prefer in-person contact, work-focused but with strong family ties
+- Overloaded and stressed tech users: Use technology for work, struggle with work-life balance
+- Tech-balanced: Use technology wisely while maintaining good life balance
+Surprisingly, people who use technology more tend to socialize less in person. This suggests digital tools may be used more for work than social life.
+3. Feeling like a part of a team at work matters more for happiness than how close you live to family. Every step up in workplace connections means slightly higher happiness. In our correlation analysis I have found that correlation coefficient is 0.19, p-value < .001 - statistically significant result). So, each 1-point increase in team belonging predicts 0.19 higher happiness.
+4. K-Means & Hierarchical Clustering agreed on the 3 key groups.
+5. PCA Visualization showed clear splits: PC1 = tech use (left=low, right=high), PC2 = work-life balance.
+6. Divisive Clustering suggested finer subgroups, but 3 clusters were optimal for clear patterns.
+  
+These findings could help encourage healthy digital habits. The study shows how a wealthy, tech-savvy country like Switzerland balances digital life with personal well-being - lessons that could apply to similar nations.
+
+In Switzerland, work relationships matter most for happiness. Technology helps, but needs to be balanced to avoid taking over personal life. The healthiest group uses technology moderately while keeping good work-life boundaries.
