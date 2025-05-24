@@ -166,6 +166,12 @@ During further phases of the project, I formulated certain limitations I have fa
 3) Physical distance from parents proves irrelevant to happiness or social bonds, challenging assumptions about geographic proximity's role in family relationships.
 
 # Feature Engineering 
+To uncover deeper behavioral patterns, enrich my data set and improve cluster differentiation, I engineered two new variables that quantify modern social dynamics. These features were specifically designed to:
+
+1. Capture technology-mediated relationships in Swiss society
+2. Measure the tension between professional and personal life
+3. Serve as optimized inputs for machine learning algorithms
+
 ### 1. Digital Reliance Score
 
 #### What I Did:
@@ -183,8 +189,7 @@ This helps test whether digital communication compensates for distance in mainta
 Individuals with digital_reliance=1 will show higher sclact (level of participation in social activities) scores, suggesting that technology helps reduce isolation.
 
 #### Findings:
-Swiss people with the highest digital activity report the lowest level of participation in social activities.
-Contrary to expectations, Cluster 1 ("Overworked Technology Users") with medium-high digital reliance (digital_reliance=0.63) reported the lowest social activity levels (sclact=2.15). Meanwhile, Cluster 2 ("Digitally-Balanced") with the highest digital reliance (0.76) showed moderate social activity (2.87), still below Cluster 0 ("Traditional Workers") with no digital reliance (sclact=3.40).
+Contrary to expectations, Cluster 1 ("Overworked Technology Users") with medium-high digital reliance (digital_reliance=0.63) reported the lowest social activity levels (sclact=2.15). Meanwhile, Cluster 2 ("Digitally-Balanced") with the highest digital reliance (0.76) showed moderate social activity (2.87), still below Cluster 0 ("Traditional Workers") with no digital reliance (sclact=3.40). So, Swiss people with the highest digital activity report the lowest level of participation in social activities.
 
 ### 2. Social-Work Balance Index
 
